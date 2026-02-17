@@ -2,127 +2,101 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Neon VR Shop</title>
+  <title>FairValue VR Store</title>
   <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
 </head>
 
 <body>
-<a-scene
-  vr-mode-ui="enabled: true"
-  webxr="optionalFeatures: local-floor"
-  background="color: #0f0f2d">
+
+<a-scene background="color: #0f0f2d">
 
   <!-- LIGHTING -->
-  <a-entity light="type: ambient; intensity: 0.8; color: #ffffff"></a-entity>
-  <a-entity light="type: point; intensity: 2; distance: 20; color: #ff00ff" position="0 4 -3"></a-entity>
-  <a-entity light="type: point; intensity: 2; distance: 20; color: #00ffff" position="3 4 -3"></a-entity>
+  <a-entity light="type: ambient; intensity: 0.7"></a-entity>
+  <a-entity light="type: point; intensity: 2; color: #00ffff" position="0 4 -3"></a-entity>
 
   <!-- FLOOR -->
-  <a-plane rotation="-90 0 0" width="30" height="30" color="#1a1a40"></a-plane>
+  <a-plane rotation="-90 0 0" width="40" height="40" color="#1a1a40"></a-plane>
 
-  <!-- CAMERA RIG -->
-  <a-entity id="rig" position="0 0 5">
+  <!-- CAMERA -->
+  <a-entity id="rig" position="0 0 6">
     <a-camera></a-camera>
-
-    <a-entity
-      laser-controls="hand: right"
-      raycaster="objects: .clickable"
-      line="color: yellow">
-    </a-entity>
-
-    <a-entity laser-controls="hand: left"></a-entity>
   </a-entity>
 
-  <!-- PRODUCT 1 -->
-  <a-box class="clickable product"
-         position="-3 1.5 -5"
-         color="#ff4d6d"
-         animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
-  </a-box>
-  <a-text value="VR Headset\n$299"
-          position="-3 2.7 -5"
-          align="center"
-          color="#ffffff"
-          width="4"></a-text>
+  <!-- PRODUCTS CONTAINER -->
+  <a-entity id="products"></a-entity>
 
-  <!-- PRODUCT 2 -->
-  <a-sphere class="clickable product"
-            position="-1 1.5 -5"
-            radius="0.8"
-            color="#00f5d4"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
-  </a-sphere>
-  <a-text value="Smart Speaker\n$149"
-          position="-1 2.7 -5"
-          align="center"
-          color="#ffffff"
-          width="4"></a-text>
-
-  <!-- PRODUCT 3 -->
-  <a-cylinder class="clickable product"
-              position="1 1.5 -5"
-              radius="0.6"
-              height="1.5"
-              color="#ffd60a"
-              animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
-  </a-cylinder>
-  <a-text value="Smart Watch\n$199"
-          position="1 2.7 -5"
-          align="center"
-          color="#ffffff"
-          width="4"></a-text>
-
-  <!-- PRODUCT 4 -->
-  <a-torus class="clickable product"
-           position="3 1.5 -5"
-           radius="0.8"
-           radius-tubular="0.2"
-           color="#9d4edd"
-           animation="property: rotation; to: 360 0 360; loop: true; dur: 9000">
-  </a-torus>
-  <a-text value="VR Controller\n$99"
-          position="3 2.7 -5"
-          align="center"
-          color="#ffffff"
-          width="4"></a-text>
-
-  <!-- CART PANEL -->
-  <a-plane id="cartPanel"
+  <!-- PRODUCT INFO PANEL -->
+  <a-plane id="infoPanel"
            position="0 3 -3"
-           width="3"
-           height="1"
-           color="#222"
-           material="opacity: 0.85">
+           width="4"
+           height="2"
+           color="#111"
+           material="opacity: 0.9"
+           visible="false">
   </a-plane>
 
-  <a-text id="cartText"
-          value="🛒 Cart: 0 items"
+  <a-text id="infoText"
           position="0 3 -2.9"
           align="center"
           color="#00ffcc"
           width="6">
   </a-text>
 
+  <!-- CART DISPLAY -->
+  <a-text id="cartText"
+          value="Cart: ₹0"
+          position="0 4 -3"
+          align="center"
+          color="#ffffff"
+          width="6">
+  </a-text>
+
 </a-scene>
 
 <script>
-let cartCount = 0;
 
-document.querySelectorAll('.clickable').forEach(product => {
-  product.addEventListener('mouseenter', function () {
-    this.setAttribute('scale', '1.2 1.2 1.2');
+const products = [
+  {name: "VR Headset", price: 299, position: "-3 1.5 -5", color: "#ff4d6d"},
+  {name: "Smart Speaker", price: 149, position: "-1 1.5 -5", color: "#00f5d4"},
+  {name: "Smart Watch", price: 199, position: "1 1.5 -5", color: "#ffd60a"},
+  {name: "VR Controller", price: 99, position: "3 1.5 -5", color: "#9d4edd"}
+];
+
+let cart = [];
+
+const container = document.querySelector("#products");
+
+products.forEach((product, index) => {
+
+  let box = document.createElement("a-box");
+
+  box.setAttribute("position", product.position);
+  box.setAttribute("color", product.color);
+  box.setAttribute("class", "clickable");
+  box.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 6000");
+
+  box.addEventListener("click", () => {
+    cart.push(product);
+    updateCart();
+    showProductInfo(product);
   });
 
-  product.addEventListener('mouseleave', function () {
-    this.setAttribute('scale', '1 1 1');
-  });
+  container.appendChild(box);
 
-  product.addEventListener('click', function () {
-    cartCount++;
-    document.querySelector('#cartText')
-      .setAttribute('value', "🛒 Cart: " + cartCount + " items");
-  });
 });
+
+function updateCart() {
+  const total = cart.reduce((sum, item) => sum + item.price, 0);
+  document.querySelector("#cartText")
+    .setAttribute("value", "Cart: ₹" + total);
+}
+
+function showProductInfo(product) {
+  document.querySelector("#infoPanel").setAttribute("visible", true);
+  document.querySelector("#infoText")
+    .setAttribute("value", product.name + "\n₹" + product.price + "\nAdded to cart!");
+}
+
 </script>
 
 </body>
