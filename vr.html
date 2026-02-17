@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+<title>VR Showroom</title>
+</head>
+
+<body>
+<a-scene renderer="antialias: true"
+         vr-mode-ui="enabled: true"
+         webxr="requiredFeatures: local-floor">
+
+<a-sky color="#0a0a2a"></a-sky>
+
+<a-entity light="type: ambient; intensity: 1"></a-entity>
+<a-entity light="type: directional; intensity: 1" position="2 4 2"></a-entity>
+
+<a-plane rotation="-90 0 0" width="40" height="40" color="#111144"></a-plane>
+
+<a-entity position="0 1.6 5">
+  <a-camera wasd-controls look-controls></a-camera>
+</a-entity>
+
+<!-- Product 1 -->
+<a-box position="-3 1 -5"
+       color="#ff4d6d"
+       animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+</a-box>
+
+<a-text value="Nike Shoe\nLightweight & Premium"
+        position="-3 2.5 -5"
+        align="center"
+        color="white"
+        width="5">
+</a-text>
+
+<!-- Product 2 -->
+<a-cylinder position="3 1 -5"
+            radius="0.7"
+            height="1"
+            color="#00f5d4"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
+</a-cylinder>
+
+<a-text value="Ultra Laptop\nHigh Performance"
+        position="3 2.5 -5"
+        align="center"
+        color="white"
+        width="5">
+</a-text>
+
+</a-scene>
+</body>
+</html>
