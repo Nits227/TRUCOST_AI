@@ -11,6 +11,12 @@
   renderer="antialias: true; colorManagement: true;"
   vr-mode-ui="enabled: true"
   background="color: #f8f8f8">
+   <a-assets>
+    <a-asset-item
+      id="toothbrush"
+      src="./model toothbrush.obj">
+    </a-asset-item>
+  </a-assets>
 
 <!-- SKY -->
 <a-sky color="#f8f8f8"></a-sky>
@@ -58,11 +64,12 @@
 <!-- PRODUCTS IN CIRCLE AROUND USER -->
 
 <!-- Toothbrush -->
-<a-cylinder position="0 0.5 -12" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-box position="0 2 -12" height="1.5" width="0.3" depth="0.3"
-       color="#4CC3D9"
-       animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
-</a-box>
+<a-entity
+    obj-model="#my-tinkercad-model"
+    position="0 0.5 -12"
+    rotation="0 0 0"
+    scale="15 15 15">
+  </a-entity>
 <a-text value="Toothbrush"
         position="0 3.5 -12"
         align="center"
