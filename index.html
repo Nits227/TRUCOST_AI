@@ -1,103 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <title>FairValue VR Store</title>
-  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+<meta charset="utf-8">
+<title>Neon VR Store</title>
+<script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
 </head>
 
 <body>
+<a-scene background="color: #111122">
 
-<a-scene background="color: #0f0f2d">
+<a-assets>
+  <!-- Shoe -->
+  <a-asset-item id="shoeModel"
+    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Shoe/glTF-Binary/Shoe.glb">
+  </a-asset-item>
 
-  <!-- LIGHTING -->
-  <a-entity light="type: ambient; intensity: 0.7"></a-entity>
-  <a-entity light="type: point; intensity: 2; color: #00ffff" position="0 4 -3"></a-entity>
+  <!-- Toothbrush -->
+  <a-asset-item id="brushModel"
+    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/WaterBottle/glTF-Binary/WaterBottle.glb">
+  </a-asset-item>
 
-  <!-- FLOOR -->
-  <a-plane rotation="-90 0 0" width="40" height="40" color="#1a1a40"></a-plane>
+  <!-- Shirt (Vest substitute) -->
+  <a-asset-item id="shirtModel"
+    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/CesiumMan/glTF-Binary/CesiumMan.glb">
+  </a-asset-item>
 
-  <!-- CAMERA -->
-  <a-entity id="rig" position="0 0 6">
-    <a-camera></a-camera>
-  </a-entity>
+  <!-- Laptop -->
+  <a-asset-item id="laptopModel"
+    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Laptop/glTF-Binary/Laptop.glb">
+  </a-asset-item>
 
-  <!-- PRODUCTS CONTAINER -->
-  <a-entity id="products"></a-entity>
+</a-assets>
 
-  <!-- PRODUCT INFO PANEL -->
-  <a-plane id="infoPanel"
-           position="0 3 -3"
-           width="4"
-           height="2"
-           color="#111"
-           material="opacity: 0.9"
-           visible="false">
-  </a-plane>
+<!-- Lighting -->
+<a-entity light="type: ambient; intensity: 0.8"></a-entity>
+<a-entity light="type: point; intensity: 2; color: #00ffff" position="0 5 0"></a-entity>
 
-  <a-text id="infoText"
-          position="0 3 -2.9"
-          align="center"
-          color="#00ffcc"
-          width="6">
-  </a-text>
+<!-- Floor -->
+<a-plane rotation="-90 0 0" width="50" height="50" color="#1a1a40"></a-plane>
 
-  <!-- CART DISPLAY -->
-  <a-text id="cartText"
-          value="Cart: ₹0"
-          position="0 4 -3"
-          align="center"
-          color="#ffffff"
-          width="6">
-  </a-text>
+<!-- Camera -->
+<a-entity position="0 1.6 5">
+  <a-camera></a-camera>
+</a-entity>
+
+<!-- NIKE SHOE ₹2000 -->
+<a-entity gltf-model="#shoeModel"
+          position="-4 1 -5"
+          scale="1 1 1"
+          rotation="0 45 0"
+          class="clickable">
+</a-entity>
+
+<a-text value="Nike Shoe\n₹2000"
+        position="-4 2.5 -5"
+        align="center"
+        color="#ffffff"
+        width="4"></a-text>
+
+<!-- TOOTHBRUSH ₹200 -->
+<a-entity gltf-model="#brushModel"
+          position="-1 1 -5"
+          scale="2 2 2"
+          rotation="0 30 0"
+          class="clickable">
+</a-entity>
+
+<a-text value="Toothbrush\n₹200"
+        position="-1 2.5 -5"
+        align="center"
+        color="#ffffff"
+        width="4"></a-text>
+
+<!-- BALENCIAGA TATTERED VEST ₹15000 -->
+<a-entity gltf-model="#shirtModel"
+          position="2 1 -5"
+          scale="1 1 1"
+          rotation="0 180 0"
+          class="clickable">
+</a-entity>
+
+<a-text value="Balenciaga Vest\n₹15000"
+        position="2 2.5 -5"
+        align="center"
+        color="#ffffff"
+        width="4"></a-text>
+
+<!-- LAPTOP ₹50000 -->
+<a-entity gltf-model="#laptopModel"
+          position="5 1 -5"
+          scale="1 1 1"
+          rotation="0 180 0"
+          class="clickable">
+</a-entity>
+
+<a-text value="Laptop\n₹50000"
+        position="5 2.5 -5"
+        align="center"
+        color="#ffffff"
+        width="4"></a-text>
 
 </a-scene>
-
-<script>
-
-const products = [
-  {name: "VR Headset", price: 299, position: "-3 1.5 -5", color: "#ff4d6d"},
-  {name: "Smart Speaker", price: 149, position: "-1 1.5 -5", color: "#00f5d4"},
-  {name: "Smart Watch", price: 199, position: "1 1.5 -5", color: "#ffd60a"},
-  {name: "VR Controller", price: 99, position: "3 1.5 -5", color: "#9d4edd"}
-];
-
-let cart = [];
-
-const container = document.querySelector("#products");
-
-products.forEach((product, index) => {
-
-  let box = document.createElement("a-box");
-
-  box.setAttribute("position", product.position);
-  box.setAttribute("color", product.color);
-  box.setAttribute("class", "clickable");
-  box.setAttribute("animation", "property: rotation; to: 0 360 0; loop: true; dur: 6000");
-
-  box.addEventListener("click", () => {
-    cart.push(product);
-    updateCart();
-    showProductInfo(product);
-  });
-
-  container.appendChild(box);
-
-});
-
-function updateCart() {
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  document.querySelector("#cartText")
-    .setAttribute("value", "Cart: ₹" + total);
-}
-
-function showProductInfo(product) {
-  document.querySelector("#infoPanel").setAttribute("visible", true);
-  document.querySelector("#infoText")
-    .setAttribute("value", product.name + "\n₹" + product.price + "\nAdded to cart!");
-}
-
-</script>
-
 </body>
 </html>
