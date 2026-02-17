@@ -7,99 +7,122 @@
 </head>
 
 <body>
-<a-scene background="color: #111122">
+<a-scene 
+  background="color: #111122"
+  vr-mode-ui="enabled: true"
+  webxr="optionalFeatures: local-floor">
 
 <a-assets>
-  <!-- Shoe -->
+
   <a-asset-item id="shoeModel"
     src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Shoe/glTF-Binary/Shoe.glb">
   </a-asset-item>
 
-  <!-- Toothbrush -->
   <a-asset-item id="brushModel"
     src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/WaterBottle/glTF-Binary/WaterBottle.glb">
   </a-asset-item>
 
-  <!-- Shirt (Vest substitute) -->
   <a-asset-item id="shirtModel"
     src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/CesiumMan/glTF-Binary/CesiumMan.glb">
   </a-asset-item>
 
-  <!-- Laptop -->
   <a-asset-item id="laptopModel"
     src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Laptop/glTF-Binary/Laptop.glb">
   </a-asset-item>
 
 </a-assets>
 
-<!-- Lighting -->
+<!-- LIGHTING -->
 <a-entity light="type: ambient; intensity: 0.8"></a-entity>
 <a-entity light="type: point; intensity: 2; color: #00ffff" position="0 5 0"></a-entity>
+<a-entity light="type: point; intensity: 2; color: #ff00ff" position="5 5 -5"></a-entity>
 
-<!-- Floor -->
+<!-- FLOOR -->
 <a-plane rotation="-90 0 0" width="50" height="50" color="#1a1a40"></a-plane>
 
-<!-- Camera -->
-<a-entity position="0 1.6 5">
+<!-- CAMERA RIG WITH CONTROLLERS -->
+<a-entity id="rig" position="0 1.6 5">
   <a-camera></a-camera>
+
+  <a-entity
+    laser-controls="hand: right"
+    raycaster="objects: .clickable"
+    line="color: yellow">
+  </a-entity>
+
+  <a-entity laser-controls="hand: left"></a-entity>
 </a-entity>
 
-<!-- NIKE SHOE ₹2000 -->
+<!-- CART PANEL -->
+<a-plane id="cartPanel"
+         position="0 3 -3"
+         width="3"
+         height="1"
+         color="#222"
+         material="opacity: 0.85">
+</a-plane>
+
+<a-text id="cartText"
+        value="🛒 Cart: 0 items"
+        position="0 3 -2.9"
+        align="center"
+        color="#00ffcc"
+        width="6">
+</a-text>
+
+<!-- PRODUCTS -->
+
 <a-entity gltf-model="#shoeModel"
           position="-4 1 -5"
           scale="1 1 1"
           rotation="0 45 0"
-          class="clickable">
+          class="clickable product">
 </a-entity>
 
-<a-text value="Nike Shoe\n₹2000"
-        position="-4 2.5 -5"
-        align="center"
-        color="#ffffff"
-        width="4"></a-text>
-
-<!-- TOOTHBRUSH ₹200 -->
 <a-entity gltf-model="#brushModel"
           position="-1 1 -5"
           scale="2 2 2"
           rotation="0 30 0"
-          class="clickable">
+          class="clickable product">
 </a-entity>
 
-<a-text value="Toothbrush\n₹200"
-        position="-1 2.5 -5"
-        align="center"
-        color="#ffffff"
-        width="4"></a-text>
-
-<!-- BALENCIAGA TATTERED VEST ₹15000 -->
 <a-entity gltf-model="#shirtModel"
           position="2 1 -5"
           scale="1 1 1"
           rotation="0 180 0"
-          class="clickable">
+          class="clickable product">
 </a-entity>
 
-<a-text value="Balenciaga Vest\n₹15000"
-        position="2 2.5 -5"
-        align="center"
-        color="#ffffff"
-        width="4"></a-text>
-
-<!-- LAPTOP ₹50000 -->
 <a-entity gltf-model="#laptopModel"
           position="5 1 -5"
           scale="1 1 1"
           rotation="0 180 0"
-          class="clickable">
+          class="clickable product">
 </a-entity>
 
-<a-text value="Laptop\n₹50000"
-        position="5 2.5 -5"
-        align="center"
-        color="#ffffff"
-        width="4"></a-text>
-
 </a-scene>
+
+<script>
+let cartCount = 0;
+
+document.querySelectorAll('.product').forEach(product => {
+
+  product.addEventListener('mouseenter', function () {
+    this.setAttribute('scale', '1.3 1.3 1.3');
+  });
+
+  product.addEventListener('mouseleave', function () {
+    this.setAttribute('scale', '1 1 1');
+  });
+
+  product.addEventListener('click', function () {
+    cartCount++;
+    document.querySelector('#cartText')
+      .setAttribute('value', "🛒 Cart: " + cartCount + " items");
+  });
+
+});
+</script>
+
 </body>
 </html>
