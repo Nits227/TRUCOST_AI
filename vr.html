@@ -18,27 +18,22 @@
     </a-asset-item>
   </a-assets>
 
-<!-- SKY -->
 <a-sky color="#f8f8f8"></a-sky>
 
-<!-- LIGHTING -->
 <a-entity light="type: ambient; intensity: 0.6"></a-entity>
 <a-entity light="type: directional; intensity: 1" position="0 10 5"></a-entity>
 
-<!-- FLOOR -->
 <a-circle rotation="-90 0 0"
           radius="20"
           color="#eeeeee">
 </a-circle>
 
-<!-- CEILING -->
 <a-circle position="0 10 0"
           rotation="90 0 0"
           radius="20"
           color="#ffffff">
 </a-circle>
 
-<!-- CYLINDRICAL WALL (REAL 360 WALL) -->
 <a-cylinder position="0 5 0"
             radius="20"
             height="10"
@@ -47,7 +42,6 @@
             color="#ffffff">
 </a-cylinder>
 
-<!-- NEON CEILING RING -->
 <a-torus position="0 9 0"
          radius="15"
          radius-tubular="0.1"
@@ -56,19 +50,17 @@
          material="emissive: #00ffff; emissiveIntensity: 2">
 </a-torus>
 
-<!-- CAMERA -->
 <a-entity position="0 1.6 0">
   <a-camera wasd-controls look-controls></a-camera>
 </a-entity>
 
-<!-- PRODUCTS IN CIRCLE AROUND USER -->
-
-<!-- Toothbrush -->
+<a-cylinder position="0 0.5 -12" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-entity
-    obj-model="#my-tinkercad-model"
-    position="0 0.5 -12"
+    obj-model="obj: #toothbrush"
+    position="0 2 -12"
     rotation="0 0 0"
-    scale="15 15 15">
+    scale="15 15 15"
+    material="color: blue">
   </a-entity>
 <a-text value="Toothbrush"
         position="0 3.5 -12"
@@ -76,7 +68,6 @@
         color="#000000"
         width="6"></a-text>
 
-<!-- Hairbrush -->
 <a-cylinder position="10 0.5 -6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-sphere position="10 2 -6" radius="0.7"
           color="#ff4d6d"
@@ -88,7 +79,6 @@
         color="#000000"
         width="6"></a-text>
 
-<!-- Claw Clip -->
 <a-cylinder position="10 0.5 6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-torus position="10 2 6" radius="1" radius-tubular="0.3"
          color="#9d4edd"
@@ -100,7 +90,6 @@
         color="#000000"
         width="6"></a-text>
 
-<!-- Water Bottle -->
 <a-cylinder position="0 0.5 12" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-cylinder position="0 2 12" radius="0.6" height="2"
             color="#00f5d4"
@@ -112,7 +101,6 @@
         color="#000000"
         width="6"></a-text>
 
-<!-- Socks -->
 <a-cylinder position="-10 0.5 6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-cone position="-10 2 6" radius-bottom="0.7" radius-top="0.3" height="2"
         color="#ffd60a"
@@ -124,7 +112,6 @@
         color="#000000"
         width="6"></a-text>
 
-<!-- Sport Device -->
 <a-cylinder position="-10 0.5 -6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
 <a-box position="-10 2 -6" depth="0.5" height="0.3" width="2"
        color="#333333"
