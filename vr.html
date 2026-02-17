@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Future Neon Showroom</title>
+<title>Neon VR Showroom</title>
 <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
 </head>
 
@@ -10,96 +10,107 @@
 <a-scene
   renderer="antialias: true; colorManagement: true;"
   vr-mode-ui="enabled: true"
-  webxr="requiredFeatures: local-floor">
+  background="color: #ffffff">
 
-<!-- WHITE ROOM SKY -->
+<!-- SKY -->
 <a-sky color="#ffffff"></a-sky>
 
 <!-- LIGHTING -->
-<a-entity light="type: ambient; intensity: 0.9; color: #ffffff"></a-entity>
-<a-entity light="type: directional; intensity: 1.2; color: #ffffff" position="2 6 3"></a-entity>
+<a-entity light="type: ambient; intensity: 0.9"></a-entity>
+<a-entity light="type: directional; intensity: 1.2" position="2 6 3"></a-entity>
 
 <!-- FLOOR -->
-<a-plane rotation="-90 0 0" width="50" height="50" color="#f2f2f2"></a-plane>
+<a-plane rotation="-90 0 0" width="50" height="50" color="#f0f0f0"></a-plane>
 
-<!-- WALLS -->
-<a-plane position="0 5 -15" width="50" height="20" color="#ffffff"></a-plane>
-<a-plane position="-15 5 0" rotation="0 90 0" width="30" height="20" color="#ffffff"></a-plane>
-<a-plane position="15 5 0" rotation="0 -90 0" width="30" height="20" color="#ffffff"></a-plane>
+<!-- BACK WALL -->
+<a-plane position="0 6 -15" width="50" height="20" color="#ffffff"></a-plane>
 
-<!-- NEON STRIPS -->
-<a-box position="0 9 -14.9" width="40" height="0.2" depth="0.1" color="#00ffff" material="emissive: #00ffff; emissiveIntensity: 2"></a-box>
-<a-box position="0 0.2 -14.9" width="40" height="0.2" depth="0.1" color="#ff00ff" material="emissive: #ff00ff; emissiveIntensity: 2"></a-box>
+<!-- NEON STRIP -->
+<a-box position="0 9 -14.9"
+       width="40"
+       height="0.2"
+       depth="0.1"
+       color="#00ffff"
+       material="emissive: #00ffff; emissiveIntensity: 2">
+</a-box>
 
 <!-- CAMERA -->
 <a-entity position="0 1.6 8">
   <a-camera wasd-controls look-controls></a-camera>
 </a-entity>
 
-<!-- DISPLAY PLATFORM FUNCTION -->
-<!-- PLATFORM 1 -->
-<a-cylinder position="-8 0.5 -8" radius="1.5" height="1" color="#ffffff" material="metalness: 0.6; roughness: 0.2"></a-cylinder>
-
-<a-entity gltf-model="assets/toothbrush.glb"
-          position="-8 2 -8"
-          scale="1 1 1"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
-</a-entity>
-
+<!-- PLATFORM FUNCTION -->
+<!-- 1 Toothbrush -->
+<a-cylinder position="-8 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-box position="-8 2 -8" depth="0.2" height="1.5" width="0.2"
+       color="#4CC3D9"
+       animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+</a-box>
 <a-text value="Toothbrush"
         position="-8 3.5 -8"
         align="center"
         color="#000000"
-        width="6">
-</a-text>
+        width="5"></a-text>
 
-<!-- PLATFORM 2 -->
-<a-cylinder position="-3 0.5 -8" radius="1.5" height="1" color="#ffffff"></a-cylinder>
-
-<a-entity gltf-model="assets/hairbrush.glb"
-          position="-3 2 -8"
-          scale="1 1 1"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 9000">
-</a-entity>
-
+<!-- 2 Hairbrush -->
+<a-cylinder position="-4 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-sphere position="-4 2 -8" radius="0.6"
+          color="#ff4d6d"
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+</a-sphere>
 <a-text value="Hairbrush"
-        position="-3 3.5 -8"
+        position="-4 3.5 -8"
         align="center"
         color="#000000"
-        width="6">
-</a-text>
+        width="5"></a-text>
 
-<!-- PLATFORM 3 -->
-<a-cylinder position="2 0.5 -8" radius="1.5" height="1" color="#ffffff"></a-cylinder>
-
-<a-entity gltf-model="assets/clawclip.glb"
-          position="2 2 -8"
-          scale="1 1 1"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
-</a-entity>
-
+<!-- 3 Claw Clip -->
+<a-cylinder position="0 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-torus position="0 2 -8" radius="0.8" radius-tubular="0.2"
+         color="#9d4edd"
+         animation="property: rotation; to: 360 0 360; loop: true; dur: 7000">
+</a-torus>
 <a-text value="Claw Clip"
-        position="2 3.5 -8"
+        position="0 3.5 -8"
         align="center"
         color="#000000"
-        width="6">
-</a-text>
+        width="5"></a-text>
 
-<!-- PLATFORM 4 -->
-<a-cylinder position="7 0.5 -8" radius="1.5" height="1" color="#ffffff"></a-cylinder>
-
-<a-entity gltf-model="assets/waterbottle.glb"
-          position="7 2 -8"
-          scale="1 1 1"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 8500">
-</a-entity>
-
+<!-- 4 Water Bottle -->
+<a-cylinder position="4 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-cylinder position="4 2 -8" radius="0.4" height="1.8"
+            color="#00f5d4"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+</a-cylinder>
 <a-text value="Water Bottle"
-        position="7 3.5 -8"
+        position="4 3.5 -8"
         align="center"
         color="#000000"
-        width="6">
-</a-text>
+        width="5"></a-text>
+
+<!-- 5 Socks -->
+<a-cylinder position="8 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-cone position="8 2 -8" radius-bottom="0.5" radius-top="0.3" height="1.5"
+        color="#ffd60a"
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 9000">
+</a-cone>
+<a-text value="Socks"
+        position="8 3.5 -8"
+        align="center"
+        color="#000000"
+        width="5"></a-text>
+
+<!-- 6 Sport Device (instead of weapon) -->
+<a-cylinder position="12 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-box position="12 2 -8" depth="0.5" height="0.3" width="2"
+       color="#333333"
+       animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+</a-box>
+<a-text value="Sport Device"
+        position="12 3.5 -8"
+        align="center"
+        color="#000000"
+        width="5"></a-text>
 
 </a-scene>
 </body>
