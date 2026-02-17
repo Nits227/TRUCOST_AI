@@ -1,76 +1,32 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>vr e commerce</title>
-<script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+<title>VR Commerce</title>
+<style>
+body {
+  font-family: Arial;
+  background: #111;
+  color: white;
+  text-align: center;
+  padding-top: 100px;
+}
+button {
+  padding: 15px 30px;
+  font-size: 20px;
+  background: cyan;
+  border: none;
+  cursor: pointer;
+}
+</style>
 </head>
-
 <body>
-<a-scene
-  background="color: #0a0a2a"
-  vr-mode-ui="enabled: true"
-  webxr="requiredFeatures: local-floor">
 
-<a-assets>
-  <a-asset-item id="shoe"
-    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Shoe/glTF-Binary/Shoe.glb"></a-asset-item>
+<h1>Welcome to FutureShop</h1>
+<p>Experience our products in immersive VR</p>
 
-  <a-asset-item id="laptop"
-    src="https://cdn.jsdelivr.net/gh/KhronosGroup/glTF-Sample-Models/2.0/Laptop/glTF-Binary/Laptop.glb"></a-asset-item>
-</a-assets>
+<button onclick="window.location.href='vr.html'">
+Enter VR Showroom
+</button>
 
-<!-- Lighting -->
-<a-entity light="type: ambient; intensity: 0.8"></a-entity>
-<a-entity light="type: point; intensity: 3; color: #00ffff" position="0 5 0"></a-entity>
-
-<!-- Floor -->
-<a-plane rotation="-90 0 0" width="40" height="40" color="#111144"></a-plane>
-
-<!-- Camera + Controllers -->
-<a-entity id="rig" position="0 1.6 5">
-  <a-camera></a-camera>
-
-  <a-entity laser-controls="hand: right"
-            raycaster="objects: .clickable"
-            line="color: yellow">
-  </a-entity>
-
-  <a-entity laser-controls="hand: left"></a-entity>
-</a-entity>
-
-<!-- SHOE DISPLAY -->
-<a-entity position="-3 0 -6">
-  <a-entity gltf-model="#shoe"
-            scale="1 1 1"
-            class="clickable"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
-  </a-entity>
-
-  <a-text value="Nike Shoe\nPremium Running Model"
-          position="0 2 0"
-          align="center"
-          color="white"
-          width="4">
-  </a-text>
-</a-entity>
-
-<!-- LAPTOP DISPLAY -->
-<a-entity position="3 0 -6">
-  <a-entity gltf-model="#laptop"
-            scale="1 1 1"
-            class="clickable"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 9000">
-  </a-entity>
-
-  <a-text value="Ultra Laptop\nHigh Performance Device"
-          position="0 2 0"
-          align="center"
-          color="white"
-          width="4">
-  </a-text>
-</a-entity>
-
-</a-scene>
 </body>
 </html>
