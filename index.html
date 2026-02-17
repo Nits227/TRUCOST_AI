@@ -1,14 +1,129 @@
+<!DOCTYPE html>
 <html>
-  <head>
-    <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
-  </head>
-  <body>
-    <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
-  </body>
+<head>
+  <meta charset="utf-8">
+  <title>Neon VR Shop</title>
+  <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
+</head>
+
+<body>
+<a-scene
+  vr-mode-ui="enabled: true"
+  webxr="optionalFeatures: local-floor"
+  background="color: #0f0f2d">
+
+  <!-- LIGHTING -->
+  <a-entity light="type: ambient; intensity: 0.8; color: #ffffff"></a-entity>
+  <a-entity light="type: point; intensity: 2; distance: 20; color: #ff00ff" position="0 4 -3"></a-entity>
+  <a-entity light="type: point; intensity: 2; distance: 20; color: #00ffff" position="3 4 -3"></a-entity>
+
+  <!-- FLOOR -->
+  <a-plane rotation="-90 0 0" width="30" height="30" color="#1a1a40"></a-plane>
+
+  <!-- CAMERA RIG -->
+  <a-entity id="rig" position="0 0 5">
+    <a-camera></a-camera>
+
+    <a-entity
+      laser-controls="hand: right"
+      raycaster="objects: .clickable"
+      line="color: yellow">
+    </a-entity>
+
+    <a-entity laser-controls="hand: left"></a-entity>
+  </a-entity>
+
+  <!-- PRODUCT 1 -->
+  <a-box class="clickable product"
+         position="-3 1.5 -5"
+         color="#ff4d6d"
+         animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+  </a-box>
+  <a-text value="VR Headset\n$299"
+          position="-3 2.7 -5"
+          align="center"
+          color="#ffffff"
+          width="4"></a-text>
+
+  <!-- PRODUCT 2 -->
+  <a-sphere class="clickable product"
+            position="-1 1.5 -5"
+            radius="0.8"
+            color="#00f5d4"
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+  </a-sphere>
+  <a-text value="Smart Speaker\n$149"
+          position="-1 2.7 -5"
+          align="center"
+          color="#ffffff"
+          width="4"></a-text>
+
+  <!-- PRODUCT 3 -->
+  <a-cylinder class="clickable product"
+              position="1 1.5 -5"
+              radius="0.6"
+              height="1.5"
+              color="#ffd60a"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
+  </a-cylinder>
+  <a-text value="Smart Watch\n$199"
+          position="1 2.7 -5"
+          align="center"
+          color="#ffffff"
+          width="4"></a-text>
+
+  <!-- PRODUCT 4 -->
+  <a-torus class="clickable product"
+           position="3 1.5 -5"
+           radius="0.8"
+           radius-tubular="0.2"
+           color="#9d4edd"
+           animation="property: rotation; to: 360 0 360; loop: true; dur: 9000">
+  </a-torus>
+  <a-text value="VR Controller\n$99"
+          position="3 2.7 -5"
+          align="center"
+          color="#ffffff"
+          width="4"></a-text>
+
+  <!-- CART PANEL -->
+  <a-plane id="cartPanel"
+           position="0 3 -3"
+           width="3"
+           height="1"
+           color="#222"
+           material="opacity: 0.85">
+  </a-plane>
+
+  <a-text id="cartText"
+          value="🛒 Cart: 0 items"
+          position="0 3 -2.9"
+          align="center"
+          color="#00ffcc"
+          width="6">
+  </a-text>
+
+</a-scene>
+
+<script>
+let cartCount = 0;
+
+document.querySelectorAll('.clickable').forEach(product => {
+  product.addEventListener('mouseenter', function () {
+    this.setAttribute('scale', '1.2 1.2 1.2');
+  });
+
+  product.addEventListener('mouseleave', function () {
+    this.setAttribute('scale', '1 1 1');
+  });
+
+  product.addEventListener('click', function () {
+    cartCount++;
+    document.querySelector('#cartText')
+      .setAttribute('value', "🛒 Cart: " + cartCount + " items");
+  });
+});
+</script>
+
+</body>
 </html>
