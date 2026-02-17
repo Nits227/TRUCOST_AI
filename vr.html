@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Neon VR Showroom</title>
+<title>360 VR Showroom</title>
 <script src="https://aframe.io/releases/1.7.1/aframe.min.js"></script>
 </head>
 
@@ -10,107 +10,124 @@
 <a-scene
   renderer="antialias: true; colorManagement: true;"
   vr-mode-ui="enabled: true"
-  background="color: #ffffff">
+  background="color: #f8f8f8">
 
 <!-- SKY -->
-<a-sky color="#ffffff"></a-sky>
+<a-sky color="#f8f8f8"></a-sky>
 
 <!-- LIGHTING -->
-<a-entity light="type: ambient; intensity: 0.9"></a-entity>
-<a-entity light="type: directional; intensity: 1.2" position="2 6 3"></a-entity>
+<a-entity light="type: ambient; intensity: 0.6"></a-entity>
+<a-entity light="type: directional; intensity: 1" position="0 10 5"></a-entity>
 
 <!-- FLOOR -->
-<a-plane rotation="-90 0 0" width="50" height="50" color="#f0f0f0"></a-plane>
+<a-circle rotation="-90 0 0"
+          radius="20"
+          color="#eeeeee">
+</a-circle>
 
-<!-- BACK WALL -->
-<a-plane position="0 6 -15" width="50" height="20" color="#ffffff"></a-plane>
+<!-- CEILING -->
+<a-circle position="0 10 0"
+          rotation="90 0 0"
+          radius="20"
+          color="#ffffff">
+</a-circle>
 
-<!-- NEON STRIP -->
-<a-box position="0 9 -14.9"
-       width="40"
-       height="0.2"
-       depth="0.1"
-       color="#00ffff"
-       material="emissive: #00ffff; emissiveIntensity: 2">
-</a-box>
+<!-- CYLINDRICAL WALL (REAL 360 WALL) -->
+<a-cylinder position="0 5 0"
+            radius="20"
+            height="10"
+            open-ended="true"
+            side="double"
+            color="#ffffff">
+</a-cylinder>
+
+<!-- NEON CEILING RING -->
+<a-torus position="0 9 0"
+         radius="15"
+         radius-tubular="0.1"
+         rotation="90 0 0"
+         color="#00ffff"
+         material="emissive: #00ffff; emissiveIntensity: 2">
+</a-torus>
 
 <!-- CAMERA -->
-<a-entity position="0 1.6 8">
+<a-entity position="0 1.6 0">
   <a-camera wasd-controls look-controls></a-camera>
 </a-entity>
 
-<!-- PLATFORM FUNCTION -->
-<!-- 1 Toothbrush -->
-<a-cylinder position="-8 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-box position="-8 2 -8" depth="0.2" height="1.5" width="0.2"
+<!-- PRODUCTS IN CIRCLE AROUND USER -->
+
+<!-- Toothbrush -->
+<a-cylinder position="0 0.5 -12" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-box position="0 2 -12" height="1.5" width="0.3" depth="0.3"
        color="#4CC3D9"
-       animation="property: rotation; to: 0 360 0; loop: true; dur: 5000">
+       animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
 </a-box>
 <a-text value="Toothbrush"
-        position="-8 3.5 -8"
+        position="0 3.5 -12"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
-<!-- 2 Hairbrush -->
-<a-cylinder position="-4 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-sphere position="-4 2 -8" radius="0.6"
+<!-- Hairbrush -->
+<a-cylinder position="10 0.5 -6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-sphere position="10 2 -6" radius="0.7"
           color="#ff4d6d"
-          animation="property: rotation; to: 0 360 0; loop: true; dur: 6000">
+          animation="property: rotation; to: 0 360 0; loop: true; dur: 7000">
 </a-sphere>
 <a-text value="Hairbrush"
-        position="-4 3.5 -8"
+        position="10 3.5 -6"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
-<!-- 3 Claw Clip -->
-<a-cylinder position="0 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-torus position="0 2 -8" radius="0.8" radius-tubular="0.2"
+<!-- Claw Clip -->
+<a-cylinder position="10 0.5 6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-torus position="10 2 6" radius="1" radius-tubular="0.3"
          color="#9d4edd"
-         animation="property: rotation; to: 360 0 360; loop: true; dur: 7000">
+         animation="property: rotation; to: 360 0 360; loop: true; dur: 8000">
 </a-torus>
 <a-text value="Claw Clip"
-        position="0 3.5 -8"
+        position="10 3.5 6"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
-<!-- 4 Water Bottle -->
-<a-cylinder position="4 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-cylinder position="4 2 -8" radius="0.4" height="1.8"
+<!-- Water Bottle -->
+<a-cylinder position="0 0.5 12" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-cylinder position="0 2 12" radius="0.6" height="2"
             color="#00f5d4"
-            animation="property: rotation; to: 0 360 0; loop: true; dur: 8000">
+            animation="property: rotation; to: 0 360 0; loop: true; dur: 9000">
 </a-cylinder>
 <a-text value="Water Bottle"
-        position="4 3.5 -8"
+        position="0 3.5 12"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
-<!-- 5 Socks -->
-<a-cylinder position="8 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-cone position="8 2 -8" radius-bottom="0.5" radius-top="0.3" height="1.5"
+<!-- Socks -->
+<a-cylinder position="-10 0.5 6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-cone position="-10 2 6" radius-bottom="0.7" radius-top="0.3" height="2"
         color="#ffd60a"
-        animation="property: rotation; to: 0 360 0; loop: true; dur: 9000">
+        animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
 </a-cone>
 <a-text value="Socks"
-        position="8 3.5 -8"
+        position="-10 3.5 6"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
-<!-- 6 Sport Device (instead of weapon) -->
-<a-cylinder position="12 0.5 -8" radius="1.2" height="1" color="#ffffff"></a-cylinder>
-<a-box position="12 2 -8" depth="0.5" height="0.3" width="2"
+<!-- Sport Device -->
+<a-cylinder position="-10 0.5 -6" radius="1.2" height="1" color="#ffffff"></a-cylinder>
+<a-box position="-10 2 -6" depth="0.5" height="0.3" width="2"
        color="#333333"
-       animation="property: rotation; to: 0 360 0; loop: true; dur: 10000">
+       animation="property: rotation; to: 0 360 0; loop: true; dur: 11000">
 </a-box>
 <a-text value="Sport Device"
-        position="12 3.5 -8"
+        position="-10 3.5 -6"
         align="center"
         color="#000000"
-        width="5"></a-text>
+        width="6"></a-text>
 
 </a-scene>
 </body>
